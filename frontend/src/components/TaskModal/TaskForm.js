@@ -7,7 +7,7 @@ const TaskForm = (props) => {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
     };
-    const temp = await fetch("http://127.0.0.1:5000/api/v1/tasks", {
+    const temp = await fetch("https://noteit-api2.onrender.com/api/v1/tasks", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(data),

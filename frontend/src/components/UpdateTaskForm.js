@@ -20,7 +20,7 @@ const UpdateTaskForm = (props) => {
   useEffect(() => {
     const getData = async () => {
       const temp = await fetch(
-        `http://127.0.0.1:5000/api/v1/tasks/${props.id}`
+        `https://noteit-api2.onrender.com/api/v1/tasks/${props.id}`
       );
       const dataObject = await temp.json();
       console.log(dataObject.data[0].title);
@@ -44,23 +44,27 @@ const UpdateTaskForm = (props) => {
       data.status === "doing"
     ) {
       console.log(data);
-      fetch(`http://127.0.0.1:5000/api/v1/tasks/${props.id}`, {
+      fetch(`https://noteit-api2.onrender.com/api/v1/tasks/${props.id}`, {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     } else {
       setValidate(true);
     }
   };
   const onDelete = () => {
-    fetch(`http://127.0.0.1:5000/api/v1/tasks/${props.id}`, {
+    fetch(`https://noteit-api2.onrender.com/api/v1/tasks/${props.id}`, {
       method: "DELETE",
     });
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
   return (
     <div>

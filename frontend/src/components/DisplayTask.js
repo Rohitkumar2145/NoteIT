@@ -13,7 +13,7 @@ const DisplayTask = (props) => {
   const [tempdata, setdata] = useState(data);
   useEffect(() => {
     const fetchData = async () => {
-      const tempData = await fetch("http://127.0.0.1:5000/api/v1/tasks");
+      const tempData = await fetch("https://noteit-api2.onrender.com/api/v1/tasks");
       const JsonData = await tempData.json();
       data = JsonData.data;
       setdata(data);
@@ -65,11 +65,11 @@ const DisplayTask = (props) => {
         }
       }
       async function position() {
-        await fetch("http://127.0.0.1:5000/api/v1/tasks", {
+        await fetch("https://noteit-api2.onrender.com/api/v1/tasks", {
           method: "DELETE",
         });
         // console.log("del");
-        await fetch("http://127.0.0.1:5000/api/v1/tasks/many", {
+        await fetch("https://noteit-api2.onrender.com/api/v1/tasks/many", {
           method: "POST",
           body: JSON.stringify(tempArray),
           headers: {
@@ -88,7 +88,7 @@ const DisplayTask = (props) => {
   };
   if (todo.length === 0) {
     async function todoAdd() {
-      await fetch("http://127.0.0.1:5000/api/v1/tasks", {
+      await fetch("https://noteit-api2.onrender.com/api/v1/tasks", {
         method: "POST",
         body: JSON.stringify({
           title: "No task for this stage",
@@ -100,7 +100,7 @@ const DisplayTask = (props) => {
   }
   if (done.length === 0) {
     async function todoAdd() {
-      await fetch("http://127.0.0.1:5000/api/v1/tasks", {
+      await fetch("https://noteit-api2.onrender.com/api/v1/tasks", {
         method: "POST",
         body: JSON.stringify({
           title: "No task for this stage",
@@ -113,7 +113,7 @@ const DisplayTask = (props) => {
   }
   if (doing.length === 0) {
     async function todoAdd() {
-      await fetch("http://127.0.0.1:5000/api/v1/tasks", {
+      await fetch("https://noteit-api2.onrender.com/api/v1/tasks", {
         method: "POST",
         body: JSON.stringify({
           title: "No task for this stage",
