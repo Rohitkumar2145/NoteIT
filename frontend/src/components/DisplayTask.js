@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable/dist/sortable.cjs.production.min";
 import React from "react";
 
 import DoingTask from "./TasksDisplay/DoingTask";

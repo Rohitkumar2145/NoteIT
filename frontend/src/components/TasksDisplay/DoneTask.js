@@ -3,9 +3,6 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable/dist/sortable.cjs.production.min";
 import Task from "../Task/Task";
-import { useState } from "react";
-import { DndContext, closestCenter } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable/dist/sortable.cjs.production.min";
 const DoneTask = (props) => {
   return (
     <div
