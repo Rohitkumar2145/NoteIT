@@ -1,6 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import React from "react";
+import {
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+} from "@dnd-kit/core";
 
 import DoingTask from "./TasksDisplay/DoingTask";
 import DoneTask from "./TasksDisplay/DoneTask";
@@ -8,11 +15,18 @@ import ToDoTask from "./TasksDisplay/ToDoTask";
 import form from "./formContext";
 
 const DisplayTask = (props) => {
+  const mouseSensor = useSensor(MouseSensor);
+  const touchSensor = useSensor(TouchSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
   let data = [];
   const [tempdata, setdata] = useState(data);
   useEffect(() => {
     const fetchData = async () => {
-      const tempData = await fetch("https://noteit-api2.onrender.com/api/v1/tasks");
+      const tempData = await fetch(
+        "https://noteit-api2.onrender.com/api/v1/tasks"
+      );
       const JsonData = await tempData.json();
       data = JsonData.data;
       setdata(data);
@@ -26,26 +40,18 @@ const DisplayTask = (props) => {
   const onDragEnd = (event) => {
     const { active, over, delta } = event;
     formContext.toggle();
-    let check1 = tempdata.find((el) => el._id === over.id);
     let check2 = tempdata.find((el) => el._id === active.id);
     if (check2.title === "No Task for this stage") {
       return;
     }
-    console.log(event);
 
     if (delta.x === 0 && delta.y === 0) {
-      console.log("inToggle");
       props.toggle(active.id);
       return;
     }
     if (active.id === over.id) {
-      // console.log("return");
       return;
     }
-    // if (data[active.id - 1].title === "No task for this stage") {
-    //   console.log(data[active.id - 1], tempdata);
-    //   return;
-    // }
 
     setdata((tempdata) => {
       let old = tempdata.find((el) => el._id === active.id);
@@ -53,7 +59,6 @@ const DisplayTask = (props) => {
       if (old.status !== newIn.status) {
         old.status = newIn.status;
       }
-      // console.log(tempdata);
       const tempArray = [];
       for (let i = 0; i < tempdata.length; i++) {
         if (tempdata[i]._id !== active.id && tempdata[i]._id !== over.id) {
@@ -67,7 +72,6 @@ const DisplayTask = (props) => {
         await fetch("https://noteit-api2.onrender.com/api/v1/tasks", {
           method: "DELETE",
         });
-        // console.log("del");
         await fetch("https://noteit-api2.onrender.com/api/v1/tasks/many", {
           method: "POST",
           body: JSON.stringify(tempArray),
@@ -75,15 +79,11 @@ const DisplayTask = (props) => {
             "Content-Type": "application/json",
           },
         });
-        // console.log("in");
       }
       position();
-      // temp.push({ title: "8" });
-      // console.log(tempArray);
 
       return tempArray;
     });
-    // console.log(tempdata);
   };
   if (todo.length === 0) {
     async function todoAdd() {
@@ -107,7 +107,7 @@ const DisplayTask = (props) => {
         }),
       });
     }
-    // console.log("done");
+
     todoAdd();
   }
   if (doing.length === 0) {
@@ -120,10 +120,8 @@ const DisplayTask = (props) => {
         }),
       });
     }
-    console.log("doing");
     todoAdd();
   }
-  // console.log(todo);
   return (
     <React.Fragment>
       <div
@@ -134,7 +132,11 @@ const DisplayTask = (props) => {
           width: "80%",
         }}
       >
-        <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={onDragEnd}
+          sensors={sensors}
+        >
           <div>
             <ToDoTask todo={todo} data={tempdata} />
           </div>

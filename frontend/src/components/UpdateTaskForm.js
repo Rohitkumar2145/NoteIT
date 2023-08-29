@@ -29,7 +29,7 @@ const UpdateTaskForm = (props) => {
       setStatus(dataObject.data[0].status);
     };
     getData();
-  });
+  }, []);
 
   const onUpdate = () => {
     const data = {

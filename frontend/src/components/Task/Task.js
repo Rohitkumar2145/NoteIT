@@ -1,16 +1,15 @@
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { useContext } from "react";
-import form from "../formContext";
 
 const Task = (props) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.id });
+  const { attributes, listeners, setNodeRef, transform } = useSortable({
+    id: props.id,
+  });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
+  const style = transform
+    ? {
+        transform: `translate(${transform.x}px, ${transform.y}px)`,
+      }
+    : undefined;
   return (
     <div
       class="m-2"

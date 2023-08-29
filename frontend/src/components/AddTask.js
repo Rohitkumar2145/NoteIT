@@ -1,12 +1,10 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import React from "react";
 import AddTaskButton from "./TaskModal/AddTaskButton";
 import TaskForm from "./TaskModal/TaskForm";
 import form from "./formContext";
 
 const AddTask = () => {
-  const formUpdate = useContext(form);
-  console.log(formUpdate);
   const [displayModule, setDisplayModule] = useState(false);
   const toggleDisplay = () => {
     setDisplayModule(!displayModule);
