@@ -13,7 +13,7 @@ const DoneTask = (props) => {
         style={{ textAlign: "center", color: "white" }}
         class="sticky top-0 text-2xl border-solid border-b-4 border-green-600 m-2 bg-[#030124]"
       >
-        Task Done
+        Done Task
       </div>
       <div>
         <SortableContext

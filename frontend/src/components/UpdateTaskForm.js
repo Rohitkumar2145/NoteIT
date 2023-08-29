@@ -7,7 +7,6 @@ const UpdateTaskForm = (props) => {
   const titleVal = useRef(title);
   const descVal = useRef(desc);
   const statusVal = useRef(status);
-  console.log(props.id);
   const onTitle = () => {
     setTitle(titleVal.current.val);
   };
@@ -39,11 +38,11 @@ const UpdateTaskForm = (props) => {
     };
 
     if (
-      data.status === "todo" ||
-      data.status === "done" ||
-      data.status === "doing"
+      (data.status === "todo" ||
+        data.status === "done" ||
+        data.status === "doing") &&
+      data.title
     ) {
-      console.log(data);
       fetch(`https://noteit-api2.onrender.com/api/v1/tasks/${props.id}`, {
         method: "PATCH",
         body: JSON.stringify(data),
@@ -86,6 +85,12 @@ const UpdateTaskForm = (props) => {
               onChange={onTitle}
             />
           </div>
+          {validate &&
+            (!titleVal.current.value ? (
+              <p class="text-[#FF0000] mb-2">Enter Task</p>
+            ) : (
+              <p></p>
+            ))}
           <div class="mb-6">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
@@ -120,9 +125,18 @@ const UpdateTaskForm = (props) => {
               onChange={onStatus}
             />
           </div>
-          {validate && (
-            <p class="text-[#FF0000] mb-2">Enter status: ToDo | Done | Doing</p>
-          )}
+          {validate &&
+            (!(
+              titleVal.current.value === "doing" ||
+              titleVal.current.value === "done" ||
+              titleVal.current.value === "todo"
+            ) ? (
+              <p class="text-[#FF0000] mb-2">
+                Enter status: ToDo | Done | Doing
+              </p>
+            ) : (
+              <p></p>
+            ))}
           <div class="flex items-center justify-between">
             <button
               class="text-white bg-gradient-to-r from-blue-500 via-blue-500 to-blue-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"

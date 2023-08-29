@@ -17,7 +17,7 @@ function App() {
         // style={{ marginLeft: "40%", width: "100%" }}
         class="text-center mb-2 animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-5xl font-black"
       >
-        ToDo App
+        NoteIT App
       </h1>
       <AddTask />
       {!display && <DisplayTask toggle={toggleDisplay} />}
